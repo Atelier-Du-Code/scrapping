@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: scrapping
+    name: webapp
     env: python
     buildCommand: "./build.sh"
     startCommand: "gunicorn webapp.wsgi:application"
