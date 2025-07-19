@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: scrapping
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn webapp.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: webapp.settings
