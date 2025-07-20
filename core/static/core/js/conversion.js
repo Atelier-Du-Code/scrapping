@@ -43,7 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const formData = new FormData();
         formData.append("image", file);
 
-        logMessage("📤 Envoi de l'image au serveur...");
+        logMessage("📤 Passage de l'image dans le modèle de récupération des mots...");
+         logMessage("📤 ça pourrait être un peu long");
 
         try {
             const response = await fetch("/convertir/", {
