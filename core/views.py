@@ -7,6 +7,12 @@ from PIL import Image
 from core.utils.image_processor import traiter_image
 import pytesseract
 from pathlib import Path
+import os
+from openai import OpenAI
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+base_prompt = "Coucou chat, j'aimerai que tu me corriges ce texte sans reformulation, ni aucun ajout. Ne prends aucune liberté:\n\n"
 
 
 # Décorateur pour vérifier l'authentification
@@ -59,10 +65,30 @@ def convertir_image(request):
 
         try:
             image_file = request.FILES["image"]
-            # Définir un dossier temporaire pour sauvegarder texte OCR
             output_folder = Path(settings.MEDIA_ROOT) / "ocr_texts"
-            texte_file_path, texte = traiter_image(image_file, output_folder)
-            return JsonResponse({"success": True, "texte": texte})
+
+            # Étape 1 : OCR
+            texte_file_path, texte_ocr = traiter_image(image_file, output_folder)
+
+            # Étape 2 : Correction via OpenAI
+            prompt = base_prompt + texte_ocr
+
+            # Appel OpenAI
+            response = client.responses.create(
+                model="gpt-3.5-turbo",
+                input=prompt
+            )
+
+            texte_corrige = response.output_text
+
+            return JsonResponse({
+                "success": True,
+                "texte": texte_corrige,
+                "logs": [
+                    "✅ OCR terminé",
+                    "✅ Correction OpenAI terminée"
+                ]
+            })
         except Exception as e:
             return JsonResponse({"success": False, "message": str(e)})
 

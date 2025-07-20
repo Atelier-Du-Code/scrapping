@@ -10,3 +10,4 @@ Pillow>=10.0.0
 pytesseract>=0.3.10
 python-decouple==3.8
 python-dotenv
+openai

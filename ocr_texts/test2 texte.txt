@@ -1,0 +1,7 @@
+Coucou ! Oui, c'est possible, mais ça dépend un peu du contexte et du langage utilisé.
+Les variables d'environnement sont en général des chaînes de caractères (strings), donc tu ne peux pas
+directement stocker un tableau (array) comme une variable native.
+
+Par contre, tu peux encoder un tableau sous forme de chaîne dans ta variable d'environnement, puis la
+
+décoder dans ton code. Par exemple :
