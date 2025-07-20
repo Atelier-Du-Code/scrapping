@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const fileInput = document.getElementById("fileElem");
     const resultText = document.getElementById("result-text");
     const consoleLog = document.getElementById("console-log");
+     const copyBtn = document.getElementById("copy-btn");
 
     function getCSRFToken() {
         // Récupère le token CSRF depuis les cookies (méthode fiable)
@@ -72,4 +73,20 @@ document.addEventListener("DOMContentLoaded", () => {
             logMessage("❌ Une erreur est survenue lors de la conversion.", "error");
         }
     });
+
+    copyBtn.addEventListener("click", () => {
+        const texte = resultText.textContent;
+        if (!texte) {
+            alert("Aucun texte à copier !");
+            return;
+        }
+        navigator.clipboard.writeText(texte)
+            .then(() => {
+                alert("Texte copié dans le presse-papier !");
+            })
+            .catch(err => {
+                alert("Erreur lors de la copie : " + err);
+            });
+    });
+
 });
