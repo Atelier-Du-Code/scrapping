@@ -1,9 +1,8 @@
 services:
   - type: web
     name: webapp
-    env: python
-    buildCommand: "./build.sh"
-    startCommand: "gunicorn webapp.wsgi:application"
+    env: docker
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: webapp.settings
