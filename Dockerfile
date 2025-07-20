@@ -21,7 +21,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app/
 
 # Collecter les fichiers statiques
+# Collecter les fichiers statiques et appliquer les migrations
+RUN python manage.py migrate --noinput
 RUN python manage.py collectstatic --noinput
+
 
 # Exposer le port 8000 (celui par défaut de gunicorn)
 EXPOSE 8000
