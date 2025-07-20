@@ -1,0 +1,79 @@
+#main-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px;
+}
+
+#left-panel, #center-panel, #right-panel {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#left-panel {
+    width: 30%;
+}
+
+#center-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+
+#right-panel {
+    width: 30%;
+}
+
+#convert-btn {
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    border: none;
+    background-color: #4cafef;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#convert-btn:hover {
+    background-color: #3a99d9;
+}
+
+#console-log {
+    background-color: #000;
+    color: #0f0;
+    padding: 10px;
+    height: 150px;
+    overflow-y: auto;
+    border-radius: 5px;
+    font-family: monospace;
+    margin-bottom: 10px;
+}
+
+#result-text {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: 100px;
+    overflow-y: auto;
+    border-radius: 5px;
+}
+
+#copy-btn {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#copy-btn:hover {
+    background-color: #3e8e41;
+}

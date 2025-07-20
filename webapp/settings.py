@@ -12,10 +12,15 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+import json
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -28,6 +33,14 @@ SECRET_KEY = 'django-insecure-gnb*_fpu_5s6w&#uqwah9__c&k#n(eqai-5)3z&08!ypa71ope
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+# USERS = json.loads(os.getenv("USERS", "{}"))
+
+# Charger les utilisateurs et mots de passe depuis le .env
+usernames = config('DJANGO_USERS', default='admin').split(',')
+passwords = config('DJANGO_PASSWORDS', default='adminpass').split(',')
+
+# Associer chaque username à son mot de passe
+USERS = dict(zip(usernames, passwords))
 
 
 # Application definition
