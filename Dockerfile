@@ -22,7 +22,7 @@ COPY . /app/
 
 # Collecter les fichiers statiques
 # Collecter les fichiers statiques et appliquer les migrations
-RUN python manage.py migrate --noinput
+
 RUN python manage.py collectstatic --noinput
 
 
@@ -30,4 +30,5 @@ RUN python manage.py collectstatic --noinput
 EXPOSE 8000
 
 # Commande pour démarrer gunicorn
-CMD ["gunicorn", "webapp.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["./entrypoint.sh"]
+
