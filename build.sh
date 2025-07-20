@@ -4,7 +4,7 @@
 apt-get update
 
 # Installer Tesseract OCR et le pack de langue français
-apt-get install -y tesseract-ocr tesseract-ocr-fra
+sudo apt-get install -y tesseract-ocr tesseract-ocr-fra
 
 # Installer les dépendances Python
 pip install -r requirements.txt
