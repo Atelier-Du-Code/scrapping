@@ -58,69 +58,22 @@ def logout_view(request):
 
 
 # 📷 OCR : Convertir une image en texte (protégé)
-# @login_required
-# @csrf_exempt
-# def convertir_image(request):
-#     if request.method == "POST":
-#         if "image" not in request.FILES:
-#             return JsonResponse({"success": False, "message": "Aucune image reçue."})
-
-#         try:
-#             image_file = request.FILES["image"]
-#             output_folder = Path(settings.MEDIA_ROOT) / "ocr_texts"
-
-#             # Étape 1 : OCR
-#             texte_file_path, texte_ocr = traiter_image(image_file, output_folder)
-
-#             # Étape 2 : Correction via OpenAI
-#             prompt = base_prompt + texte_ocr
-
-#             # Appel OpenAI
-#             response = client.responses.create(
-#                 model="gpt-3.5-turbo",
-#                 input=prompt
-#             )
-
-#             texte_corrige = response.output_text
-
-#             return JsonResponse({
-#                 "success": True,
-#                 "texte": texte_corrige,
-#                 "logs": [
-#                     "✅ OCR terminé",
-#                     "✅ Correction OpenAI terminée"
-#                 ]
-#             })
-#         except Exception as e:
-#             return JsonResponse({"success": False, "message": str(e)})
-
-#     return JsonResponse({"success": False, "message": "Requête invalide."})
-
-
-
 @login_required
 @csrf_exempt
 def convertir_image(request):
     if request.method == "POST":
         if "image" not in request.FILES:
-            logger.error("Aucune image reçue dans la requête.")
             return JsonResponse({"success": False, "message": "Aucune image reçue."})
 
         try:
             image_file = request.FILES["image"]
             output_folder = Path(settings.MEDIA_ROOT) / "ocr_texts"
 
-            logger.debug(f"Traitement OCR démarré pour le fichier : {image_file.name}")
-
             # Étape 1 : OCR
             texte_file_path, texte_ocr = traiter_image(image_file, output_folder)
 
-            logger.debug(f"OCR terminé, texte extrait : {texte_ocr[:100]}...")  # tronque pour ne pas flooder
-
             # Étape 2 : Correction via OpenAI
             prompt = base_prompt + texte_ocr
-
-            logger.debug("Envoi du prompt à OpenAI")
 
             # Appel OpenAI
             response = client.responses.create(
@@ -129,8 +82,6 @@ def convertir_image(request):
             )
 
             texte_corrige = response.output_text
-
-            logger.debug("Réponse OpenAI reçue")
 
             return JsonResponse({
                 "success": True,
@@ -141,8 +92,6 @@ def convertir_image(request):
                 ]
             })
         except Exception as e:
-            logger.exception("Erreur lors de la conversion OCR et correction OpenAI")
             return JsonResponse({"success": False, "message": str(e)})
 
-    logger.warning("Requête invalide reçue dans convertir_image")
     return JsonResponse({"success": False, "message": "Requête invalide."})
