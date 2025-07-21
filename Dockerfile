@@ -20,6 +20,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copier tout le projet
 COPY . /app/
 
+# Rendre entrypoint.sh exécutable
+RUN chmod +x /app/entrypoint.sh
+
 # Collecter les fichiers statiques
 # Collecter les fichiers statiques et appliquer les migrations
 
